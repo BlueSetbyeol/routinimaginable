@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+
+import Flexion from "./assets/flexion.jpeg";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	return (
+		<>
+			<nav>
+				<button type="button" className="button_menu">
+					Exercices
+				</button>
+				<button type="button" className="button_menu">
+					Routines
+				</button>
+				<button type="button" className="button_menu">
+					Signature dedans / dehors
+				</button>
+			</nav>
+			<main>
+				<h1>Hi !</h1>
+				<article className="card">
+					<h2>1ère étape :</h2>
+					<img src={Flexion} alt="bonhomme_en_flexion" />
+				</article>
+			</main>
+			<footer>Made with lots of love and energy</footer>
+		</>
+	);
 }
 
-export default App
+export default App;

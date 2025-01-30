@@ -1,0 +1,36 @@
+.navigation_btn {
+	display: flex;
+	gap: 1em;
+}
+
+.button_menu {
+	width: 5em;
+	height: 3em;
+	font-size: 0.8em;
+	background-color: var(--dark-color);
+	border-radius: 12px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.button_menu:hover {
+	background-color: var(--secondary_color);
+}
+
+.button_menu img {
+	width: 2em;
+}
+
+.button_menu p {
+	display: none;
+}
+
+@media screen and (min-width: 780px) {
+	.button_menu {
+		width: 10em;
+	}
+	.button_menu p {
+		display: block;
+	}
+}

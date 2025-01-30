@@ -1,29 +1,21 @@
 import "./App.css";
-
-import Flexion from "./assets/flexion.jpeg";
+import ListExercises from "./pages/ListExercises/ListExercises";
+import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
 	return (
 		<>
 			<nav>
-				<button type="button" className="button_menu">
-					Exercices
-				</button>
-				<button type="button" className="button_menu">
-					Routines
-				</button>
-				<button type="button" className="button_menu">
-					Signature dedans / dehors
-				</button>
+				<Navbar />
 			</nav>
 			<main>
 				<h1>Hi !</h1>
-				<article className="card">
-					<h2>1ère étape :</h2>
-					<img src={Flexion} alt="bonhomme_en_flexion" />
-				</article>
+				<ListExercises />
 			</main>
-			<footer>Made with lots of love and energy</footer>
+			<footer>
+				<Footer />
+			</footer>
 		</>
 	);
 }

@@ -13,8 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExerciseInstance = void 0;
+const mongodb_1 = require("mongodb");
 const client_1 = __importDefault(require("../../database/client"));
 class ExerciseRepository {
+    constructor() {
+        this.collection = client_1.default.collection("exercise");
+    }
     static getInstance() {
         if (ExerciseRepository.instance) {
             return ExerciseRepository.instance;
@@ -24,13 +28,56 @@ class ExerciseRepository {
     }
     listAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const database = client_1.default.db("routine_imaginable");
-            const collection = database.collection("exercise");
-            const exercises = yield collection.find().toArray();
+            const exercises = yield this.collection.find().toArray();
             if (exercises.length === 0) {
                 console.log("No documents found!");
             }
             return exercises;
+        });
+    }
+    getOne(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const exercise = yield this.collection.findOne({ _id: new mongodb_1.ObjectId(id) });
+            if (!exercise) {
+                console.log("No exercise found");
+                return undefined;
+            }
+            return exercise;
+        });
+    }
+    addOne(exercise) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const newExercise = yield this.collection.insertOne(exercise);
+            if (!newExercise) {
+                console.log("No exercise added");
+                return undefined;
+            }
+            return newExercise.insertedId;
+        });
+    }
+    update(id, exercise) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const updatedExercise = yield this.collection.updateOne({ _id: new mongodb_1.ObjectId(id) }, {
+                $set: { exercise },
+            });
+            if (!updatedExercise || !updatedExercise.upsertedId) {
+                console.log("No exercise changed");
+                return undefined;
+            }
+            return updatedExercise.upsertedId;
+        });
+    }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const deletedExercise = yield this.collection.deleteOne({
+                _id: new mongodb_1.ObjectId(id),
+            });
+            if (deletedExercise.deletedCount === 1) {
+                console.log("Successfully deleted the exercise.");
+            }
+            else {
+                console.log("No exercises matched the query. Deleted 0 exercise.");
+            }
         });
     }
 }

@@ -20,6 +20,7 @@ const client = new mongodb_1.MongoClient(uri, {
         deprecationErrors: true,
     },
 });
+const database = client.db("routine_imaginable");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -35,5 +36,5 @@ function run() {
         }
     });
 }
-run().catch(console.dir);
-exports.default = client;
+// run().catch(console.dir); To use only for setting up the database, relate to function previously written.
+exports.default = database;

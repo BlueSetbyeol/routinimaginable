@@ -13,6 +13,8 @@ const client = new MongoClient(uri, {
 	},
 });
 
+const database = client.db("routine_imaginable");
+
 async function run() {
 	try {
 		// Connect the client to the server	(optional starting in v4.7)
@@ -27,6 +29,6 @@ async function run() {
 		await client.close();
 	}
 }
-run().catch(console.dir);
+// run().catch(console.dir); To use only for setting up the database, relate to function previously written.
 
-export default client;
+export default database;

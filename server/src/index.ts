@@ -16,7 +16,8 @@ app.get("/", (req: Request, res: Response) => {
 	res.send("On est heureux");
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
 	console.log(`[server]: Server is running at http://localhost:${port}`);
-	ExerciseInstance.listAll();
+	const result = await ExerciseInstance.getOne("67bf61a7eec7567b0093726a");
+	console.log(result);
 });

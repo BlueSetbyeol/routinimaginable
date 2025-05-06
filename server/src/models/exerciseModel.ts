@@ -1,5 +1,7 @@
+import type { ObjectId } from "mongodb";
+
 export type ExerciseModel = {
-	id: number;
+	_id: ObjectId;
 	name: string;
 	image: string;
 	category: ExerciseCategory;

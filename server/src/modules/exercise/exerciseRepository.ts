@@ -1,4 +1,3 @@
-import type { Pool, ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import client from "../../database/client";
 import type { ExerciseModel } from "../../models/exerciseModel";
 
@@ -14,8 +13,16 @@ class ExerciseRepository {
 	}
 
 	async listAll(): Promise<ExerciseModel[]> {
-		const [exercise] = await client.query("select * from exercise");
-		return exercise as ExerciseModel[];
+		const database = client.db("routine_imaginable");
+		const collection = database.collection<ExerciseModel>("exercise");
+
+		const exercises = await collection.find().toArray();
+
+		if (exercises.length === 0) {
+			console.log("No documents found!");
+		}
+
+		return exercises;
 	}
 }
 

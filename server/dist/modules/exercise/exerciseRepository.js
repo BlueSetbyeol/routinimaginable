@@ -24,8 +24,13 @@ class ExerciseRepository {
     }
     listAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const [exercise] = yield client_1.default.query("select * from exercise");
-            return exercise;
+            const database = client_1.default.db("routine_imaginable");
+            const collection = database.collection("exercise");
+            const exercises = yield collection.find().toArray();
+            if (exercises.length === 0) {
+                console.log("No documents found!");
+            }
+            return exercises;
         });
     }
 }

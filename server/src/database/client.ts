@@ -1,17 +1,32 @@
-import mysql from "mysql2/promise";
+const { DB_URI } = process.env;
 
-const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+import { MongoClient, ServerApiVersion } from "mongodb";
 
-console.log(DB_PORT);
-// Create the connection to database
-const client = mysql.createPool({
-	host: DB_HOST,
-	port: Number.parseInt(DB_PORT as string),
-	user: DB_USER,
-	password: DB_PASSWORD,
-	database: DB_NAME,
+const uri = DB_URI as string;
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+	serverApi: {
+		version: ServerApiVersion.v1,
+		strict: true,
+		deprecationErrors: true,
+	},
 });
 
-export default client;
+async function run() {
+	try {
+		// Connect the client to the server	(optional starting in v4.7)
+		await client.connect();
+		// Send a ping to confirm a successful connection
+		await client.db("admin").command({ ping: 1 });
+		console.log(
+			"Pinged your deployment. You successfully connected to MongoDB!",
+		);
+	} finally {
+		// Ensures that the client will close when you finish/error
+		await client.close();
+	}
+}
+run().catch(console.dir);
 
-// import type { Pool, ResultSetHeader, RowDataPacket } from "mysql2/promise";
+export default client;

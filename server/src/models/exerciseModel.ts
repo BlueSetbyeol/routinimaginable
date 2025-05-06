@@ -3,6 +3,7 @@ export type ExerciseModel = {
 	name: string;
 	image: string;
 	category: ExerciseCategory;
+	description: string;
 };
 
 export type ExerciseCategory = "travail" | "étirement" | "échauffement";
